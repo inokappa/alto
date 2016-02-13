@@ -3,13 +3,16 @@ module Alto
 
     def initialize(opts = {})
       @path = opts['path']
+      @lang = opts['lang']
     end
 
     def alto
       if File.exist?(@path)
-        logging('INFO', @path + ' exists.')
+        message = @lang == 'hakata' ? ' あるくさ' : ' exists.'
+        logging('INFO', @path + message)
       else
-        logging('INFO', @path + ' does not exists.')
+        message = @lang == 'hakata' ? ' ないくさ' : ' does not exists.'
+        logging('WARN', @path + message)
       end
     end
 
@@ -26,11 +29,7 @@ module Alto
       # ログっぽい出力を得るように強引に puts で
       #
       logdate = Time.now
-      if level == 'DEBUG'
-        puts '[' + logdate.to_s + '] ' + level +  ' : ' + message
-      elsif level == 'INFO'
-        puts '[' + logdate.to_s + '] ' + level +  '  : ' + message
-      end
+      puts '[' + logdate.to_s + '] ' + level +  ' : ' + message
     end
 
   end

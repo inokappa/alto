@@ -1,18 +1,19 @@
 def __main__(argv)
 
-  opt = Getopts.getopts(
+  opts = Getopts.getopts(
     'vh',
     'version',
     'help',
-    'path:'
+    'path:',
+    'lang:',
   )
 
-  if opt['v'] || opt['version']
+  if opts['v'] || opts['version']
     puts "v#{Alto::VERSION}"
-  elsif opt['h'] || opt['help'] || opt['path'] == ''
+  elsif opts['h'] || opts['help'] || opts['path'] == ''
     puts "#{Alto::HELP}"
-  elsif opt['path']
-    file = Alto::Alto.new(opt)
+  elsif opts['path']
+    file = Alto::Alto.new(opts)
     file.alto
   else
     puts "#{Alto::HELP}"
